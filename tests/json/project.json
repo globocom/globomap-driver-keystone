@@ -1,0 +1,44 @@
+[
+  {
+    "collection": "ks_project",
+    "type": "collections",
+    "action": "UPDATE",
+    "element": {
+      "id": "037185d83e3e402b97a19637395b85eb",
+      "name": "faas",
+      "provider": "ks",
+      "properties": {
+        "description": "null",
+        "enabled": "true",
+        "is_domain": "false",
+        "domain_id": "default",
+        "parent_id": "default",
+        "links": {
+          "self": "https://auth.s3.dev.globoi.comadmin/v3/projects/037185d83e3e402b97a19637395b85eb"
+        }
+      },
+      "properties_metadata": {
+        "description": {
+          "description": "Description"
+        },
+        "enabled": {
+          "description": "Enabled"
+        },
+        "is_domain": {
+          "description": "Is Domain"
+        },
+        "domain_id": {
+          "description": "Domain ID"
+        },
+        "parent_id": {
+          "description": "Parent ID"
+        },
+        "links": {
+          "description": "Links"
+        }
+      },
+      "timestamp": 1536088851
+    },
+    "key": "ks_037185d83e3e402b97a19637395b85eb"
+  }
+]

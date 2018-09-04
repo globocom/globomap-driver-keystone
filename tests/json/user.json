@@ -1,0 +1,48 @@
+[
+  {
+    "collection": "ks_user",
+    "type": "collections",
+    "action": "UPDATE",
+    "element": {
+      "id": "002c4bf2cea74b22ad82083c0996016f",
+      "name": "u_zip-test-project-1",
+      "provider": "ks",
+      "properties": {
+        "email": null,
+        "domain_id": "default",
+        "default_project_id": "77574a47f51441c583667d57b6029454",
+        "enabled": true,
+        "options": {},
+        "password_expires_at": null,
+        "links": {
+          "self": "https://auth.s3.dev.globoi.comadmin/v3/users/002c4bf2cea74b22ad82083c0996016f"
+        }
+      },
+      "properties_metadata": {
+        "email": {
+          "description": "Email"
+        },
+        "domain_id": {
+          "description": "Domain ID"
+        },
+        "default_project_id": {
+          "description": "Default Project ID"
+        },
+        "enabled": {
+          "description": "Enabled"
+        },
+        "options": {
+          "description": "Options"
+        },
+        "password_expires_at": {
+          "description": "Password Expires At"
+        },
+        "links": {
+          "description": "Links"
+        }
+      },
+      "timestamp": 1536089074
+    },
+    "key": "ks_002c4bf2cea74b22ad82083c0996016f"
+  }
+]

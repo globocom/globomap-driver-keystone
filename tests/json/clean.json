@@ -1,0 +1,42 @@
+[{
+    "action": "CLEAR",
+    "collection": "ks_project",
+    "element": [
+        [
+            {
+                "field": "timestamp",
+                "operator": "<",
+                "value": 123456789
+            }
+        ]
+    ],
+    "type": "collections"
+},
+{
+    "action": "CLEAR",
+    "collection": "ks_user",
+    "element": [
+        [
+            {
+                "field": "timestamp",
+                "operator": "<",
+                "value": 123456789
+            }
+        ]
+    ],
+    "type": "collections"
+},
+{
+    "action": "CLEAR",
+    "collection": "ks_role",
+    "element": [
+        [
+            {
+                "field": "timestamp",
+                "operator": "<",
+                "value": 123456789
+            }
+        ]
+    ],
+    "type": "edges"
+}]

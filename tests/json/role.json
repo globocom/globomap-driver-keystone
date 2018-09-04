@@ -1,0 +1,14 @@
+[{
+  "collection": "ks_role",
+  "type": "edges",
+  "action": "UPDATE",
+  "element": {
+    "id": "9fe2ff9ee4384b1894a90878d3e92bab002c4bf2cea74b22ad82083c0996016f",
+    "name": "_member_",
+    "provider": "ks",
+    "from": "ks_project/ks_77574a47f51441c583667d57b6029454",
+    "to": "ks_user/ks_002c4bf2cea74b22ad82083c0996016f",
+    "timestamp": 1536089506
+  },
+  "key": "ks_9fe2ff9ee4384b1894a90878d3e92bab002c4bf2cea74b22ad82083c0996016f"
+}]

@@ -19,5 +19,8 @@ clean: ## Clear *.pyc files, etc
 tests: clean ## Make tests
 	@nosetests --verbose --rednose  --nocapture --cover-package=globomap_driver_keystone --with-coverage; coverage report -m
 
+tests_ci: clean ## Make tests to CI
+	@nosetests --verbose --rednose  --nocapture --cover-package=globomap_driver_keystone
+
 deploy: ## Make deploy
 	@tsuru app-deploy -a $(project) globomap_driver_keystone Procfile requirements.txt scheduler.py run_loader.py .python-version

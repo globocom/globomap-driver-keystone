@@ -29,12 +29,12 @@ from keystoneclient.v3 import client
 class Keystone(object):
 
     def __init__(self):
-        auth = v3.Password(auth_url=settings.AUTH_URL,
-                           username=settings.USERNAME,
-                           password=settings.PASSWORD,
-                           project_name=settings.PROJECT_NAME,
-                           user_domain_name=settings.USER_DOMAIN_NAME,
-                           project_domain_name=settings.PROJECT_DOMAIN_NAME)
+        auth = v3.Password(auth_url=settings.KEYSTONE_AUTH_URL,
+                           username=settings.KEYSTONE_USERNAME,
+                           password=settings.KEYSTONE_PASSWORD,
+                           project_name=settings.KEYSTONE_PROJECT_NAME,
+                           user_domain_name=settings.KEYSTONE_USER_DOMAIN_NAME,
+                           project_domain_name=settings.KEYSTONE_PROJECT_DOMAIN_NAME)
 
         self.session = Session(auth=auth)
 

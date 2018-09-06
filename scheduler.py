@@ -17,6 +17,7 @@
 from logging import config
 
 from apscheduler.schedulers.blocking import BlockingScheduler
+from globomap_monitoring import zbx_passive
 
 from globomap_driver_keystone.loader import Loader
 from globomap_driver_keystone.settings import LOGGING
@@ -31,6 +32,11 @@ def run_loader():
 
     inst_loader = Loader()
     inst_loader.run()
+
+
+@sched.scheduled_job('interval', seconds=60)
+def job_monitoracao_zabbix():
+    zbx_passive.send()
 
 
 if __name__ == '__main__':

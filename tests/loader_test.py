@@ -53,6 +53,7 @@ class TestLoader(unittest2.TestCase):
         user = self._open_file('tests/json/user.json')
         role = self._open_file('tests/json/role.json')
 
+        self.loader.run_workers = MagicMock()
         self.loader.run_clean = MagicMock()
         self.loader.keystone.get_projects = MagicMock(return_value=project)
         self.loader.keystone.get_users = MagicMock(return_value=user)
@@ -61,6 +62,7 @@ class TestLoader(unittest2.TestCase):
         self.loader.run()
 
         self.loader.run_clean.assert_called()
+        self.loader.run_workers.assert_called()
         self.loader.keystone.get_projects.assert_called()
         self.loader.keystone.get_users.assert_called()
         self.loader.keystone.get_roles.assert_called()
@@ -78,27 +80,38 @@ class TestLoader(unittest2.TestCase):
 
         self.loader.update.post.assert_called_with(documents)
 
+    def test_run_worker(self):
+        """ Test run worker """
+
+        self._mock_update()
+
+        data = iter([1, 2, 3])
+        pool = MagicMock()
+        pool.imap_unordered.return_value.__iter__ = Mock(return_value=data)
+
+        self.loader = Loader()
+        self.loader.iterator_slice = MagicMock(return_value=data)
+        self.loader.run_workers(pool, data)
+
+        pool.imap_unordered.assert_called_with(self.loader.send, data)
+
     def test_iterator_slice(self):
         """ Test iterator slice """
 
         self._mock_update()
-
         self.loader = Loader()
-        self.loader.send = MagicMock()
 
         data = [1, 2, 3]
-        self.loader.iterator_slice(data, 2)
+        items = self.loader.iterator_slice(data, 2)
 
-        call_count = self.loader.send.call_count
-        self.assertEqual(call_count, 2)
+        data = items.__next__()
+        self.assertEqual(data, [1, 2])
 
-        call_args_list = self.loader.send.call_args_list
+        data = items.__next__()
+        self.assertEqual(data, [3])
 
-        first_call = call_args_list[0][0][0]
-        self.assertEqual(first_call, [1, 2])
-
-        last_call = call_args_list[1][0][0]
-        self.assertEqual(last_call, [3])
+        with self.assertRaises(StopIteration):
+            items.__next__()
 
     def _mock_update(self):
         patch('globomap_driver_keystone.loader.auth').start()

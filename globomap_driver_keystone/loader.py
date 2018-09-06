@@ -15,6 +15,8 @@
 """
 import json
 import logging
+import multiprocessing
+import itertools
 
 from time import time
 
@@ -29,6 +31,7 @@ from globomap_driver_keystone.util import clear
 class Loader(object):
 
     logger = logging.getLogger(__name__)
+    update = None
 
     def __init__(self):
         self.keystone = Keystone()
@@ -38,27 +41,32 @@ class Loader(object):
             username=settings.GLOBOMAP_LOADER_API_USERNAME,
             password=settings.GLOBOMAP_LOADER_API_PASSWORD
         )
-        self.update = Update(auth=auth_inst, driver_name='keystone')
+        Loader.update = Update(auth=auth_inst, driver_name='keystone')
 
-    def send(self, data):
+    @staticmethod
+    def send(data):
         try:
-            return self.update.post(data)
+            res = Loader.update.post(data)
         except Exception:
-            self.logger.exception('Message dont sent %s', json.dumps(data))
+            Loader.logger.exception('Message dont sent %s', json.dumps(data))
+        else:
+            return res
 
     def run(self):
         current_time = int(time())
+        pool = multiprocessing.Pool(processes=settings.WORKERS)
 
         projects = self.keystone.get_projects()
-        self.iterator_slice(projects, self.page)
+        self.run_workers(pool, projects)
 
         users = self.keystone.get_users()
-        self.iterator_slice(users, self.page)
+        self.run_workers(pool, users)
 
         roles = self.keystone.get_roles()
-        self.iterator_slice(roles, self.page)
+        self.run_workers(pool, roles)
 
         self.run_clean(current_time)
+        pool.close()
 
     def run_clean(self, current_time):
         documents = [
@@ -66,16 +74,21 @@ class Loader(object):
             clear('ks_user', 'collections', current_time),
             clear('ks_role', 'edges', current_time)
         ]
-        self.send(documents)
+        Loader.send(documents)
+
+    def run_workers(self, pool, data, length=100):
+        for _ in pool.imap_unordered(
+                Loader.send, self.iterator_slice(data, length)):
+            pass
 
     def iterator_slice(self, iterator, length):
         start = 0
         end = length
 
         while True:
-            items = iterator[start:end]
+            res = list(itertools.islice(iterator, start, end))
             start += length
             end += length
-            if not items:
+            if not res:
                 break
-            self.send(items)
+            yield res

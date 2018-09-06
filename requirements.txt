@@ -3,4 +3,4 @@ globomap-loader-api-client==0.0.6
 python-keystoneclient==3.15.0
 globomap-monitoring==0.0.2
 raven==6.6.0
-requests==2.18.1
+requests==2.18.4

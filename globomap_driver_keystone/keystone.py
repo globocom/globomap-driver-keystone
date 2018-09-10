@@ -86,11 +86,11 @@ class Keystone(object):
             'name': project.get('name'),
             'provider': 'ks',
             'properties': {
-                'description': project.get('description'),
+                'description': project['description'],
                 'enabled': json.dumps(project.get('enabled')),
                 'is_domain': json.dumps(project.get('is_domain')),
-                'domain_id': project.get('domain_id'),
-                'parent_id': project.get('parent_id'),
+                'domain_id': project['domain_id'],
+                'parent_id': project['parent_id'],
                 'links': project.get('links')
             },
             'properties_metadata': {

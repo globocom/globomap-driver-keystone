@@ -21,9 +21,3 @@ tests: clean ## Make tests
 
 tests_ci: clean ## Make tests to CI
 	@nosetests --verbose --rednose  --nocapture --cover-package=globomap_driver_keystone
-
-deploy_dev: ## Make deploy dev
-	@tsuru app-deploy -a globomap-driver-keystone-dev globomap_driver_keystone Procfile requirements.txt scheduler.py run_loader.py .python-version
-
-deploy_prod: ## Make deploy prod
-	@tsuru app-deploy -a globomap-driver-keystone globomap_driver_keystone Procfile requirements.txt scheduler.py run_loader.py .python-version

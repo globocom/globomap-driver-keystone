@@ -1,20 +1,10 @@
 # GloboMap Driver Keystone
 
-Python library to get data from [Keystone](https://auth.s3.globoi.com:5000/v3/).
+Python library to get data from [Keystone](https://docs.openstack.org/keystone).
 The data are inserted in API of [Globo Map Core Loader] (https://github.com/globocom/globomap-core-loader) through of [Globo Map API Loader Client] (https://github.com/globocom/globomap-loader-api-client)
 
-## Starting Project:
-
-` make setup `
-
 ## Running Tests:
-
-` make setup ` (When project not started yet.)<br>
 ` make tests `
-
-## Deploy in Tsuru:
-
-` make deploy project=<name of project> `<br>
 
 ## Environment variables configuration
 
@@ -22,7 +12,7 @@ All of the environment variables below must be set for the api to work properly.
 
 | Variable                     |  Description                 | Example                                    |
 |----------------------------- |------------------------------|--------------------------------------------|
-| KEYSTONE_AUTH_URL            | Keystone API endpoint        | https://auth.s3.globoi.com:5000/v3         |
+| KEYSTONE_AUTH_URL            | Keystone API endpoint        | https://auth.s3.domain.com:5000/v3         |
 | KEYSTONE_USERNAME            | Keystone username            | username                                   |
 | KEYSTONE_PASSWORD            | Keystone password            | xyz                                        |
 | KEYSTONE_PROJECT_NAME        | Keystone project name        | project                                    |
